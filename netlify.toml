@@ -1,0 +1,7 @@
+[[edge_functions]]
+function = "dog"
+path = "/api/dog"
+
+[[edge_functions]]
+function = "dog"
+path = "/api/dog/:id"
