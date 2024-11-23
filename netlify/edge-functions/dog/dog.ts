@@ -1,8 +1,5 @@
-// @ts-expect-error
 import { Redis } from "https://deno.land/x/upstash_redis@v1.3.2/mod.ts";
-// @ts-expect-error
 import type { Context } from "https://edge.netlify.com";
-// @ts-expect-error
 import { createAnswers } from "./createAnswers.ts";
 
 const GET = async () => {
@@ -86,9 +83,9 @@ export default async (request: Request, context: Context) => {
 
   switch (request.method) {
     case "POST":
-      return POST(request, context);
+      return await POST(request, context);
     case "GET":
     default:
-      return GET();
+      return await GET();
   }
 };
