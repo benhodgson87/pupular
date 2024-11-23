@@ -12,9 +12,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@netlify/edge-functions": "^2.3.1",
-    "@netlify/remix-edge-adapter": "^3.2.1",
-    "@netlify/remix-runtime": "^2.2.0",
+    "@netlify/edge-functions": "^2.11.1",
+    "@netlify/functions": "^2.8.2",
+    "@netlify/remix-adapter": "^2.5.1",
     "@remix-run/node": "^2.15.0",
     "@remix-run/react": "^2.15.0",
     "@remix-run/serve": "^2.15.0",
