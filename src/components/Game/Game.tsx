@@ -29,7 +29,6 @@ const Game = () => {
         .then((res) => res.json())
         .catch(() => null),
     ]).then(([dog, picture]) => {
-      console.log(dog);
       setCurrent({
         ...dog,
         avatar: picture.message || null,
@@ -63,7 +62,7 @@ const Game = () => {
 
   return (
     <>
-      <header className="flex-1 w-full max-w-96">
+      <header className="flex-1 w-full max-w-2xl">
         <div className="w-full grid grid-cols-4 grid-rows-1 gap-4">
           <div className="flex flex-row items-center justify-center p-2">
             <Timer timeRemaining={timeRemaining} />

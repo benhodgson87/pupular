@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@netlify/remix-runtime";
+import type { MetaFunction } from "@remix-run/node";
 import { Game } from "~/components/Game";
 import { PlayFooter } from "~/components/PlayFooter";
 

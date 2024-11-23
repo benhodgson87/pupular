@@ -10,7 +10,7 @@ const getRange = (number: number) => {
   if (number < 12) return 8;
   if (number < 24) return 16;
   if (number < 100) return 32;
-  return 128;
+  return 64;
 };
 
 const createAnswers = (input: number): number[] => {
