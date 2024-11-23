@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
-import { howManyParaEnterAnimation } from "./AnswerCard.motion";
+import { howManyAnimation, nextRoundAnimation } from "./AnswerCard.motion";
 
 type Props = {
   correct: boolean;
   name: string;
   count: number;
-  genders: { M?: number; F?: number };
+  handleNextRound: () => void;
 };
 
-const AnswerCard = ({ correct, name, count }: Props) => {
+const AnswerCard = ({ correct, name, count, handleNextRound }: Props) => {
   const { t } = useTranslation(undefined, { keyPrefix: "AnswerCard" });
 
   return (
@@ -21,8 +21,8 @@ const AnswerCard = ({ correct, name, count }: Props) => {
         key="howMany"
         initial="initial"
         animate="animate"
-        variants={howManyParaEnterAnimation}
-        className="text-xl leading-relaxed text-white"
+        variants={howManyAnimation}
+        className="text-2xl leading-relaxed text-white mb-6"
       >
         <Trans
           i18nKey="AnswerCard.howManyCount"
@@ -31,6 +31,15 @@ const AnswerCard = ({ correct, name, count }: Props) => {
           components={[<strong />]}
         ></Trans>
       </motion.p>
+      <motion.button
+        initial="initial"
+        animate="animate"
+        variants={nextRoundAnimation}
+        className="w-full max-w-48 bg-orange-400 dark:bg-orange-600 hover:bg-orange-200 text-white text-xl font-bold py-4 px-5 rounded-full hover:scale-105"
+        onClick={handleNextRound}
+      >
+        {t("nextRound")}
+      </motion.button>
     </div>
   );
 };

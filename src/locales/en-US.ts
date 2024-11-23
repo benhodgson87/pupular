@@ -1,10 +1,11 @@
 export default {
   AnswerCard: {
     correct: "Correct!",
-    incorrect: "Not this time",
     howManyCount_one: "There is just one pup named <0>{{name}}</0> in NYC!",
     howManyCount_other:
       "There are {{count}} pups named <0>{{name}}</0> in NYC!",
+    incorrect: "Not this time",
+    nextRound: "Next round",
   },
   GameOver: {
     gameOver: "Game over!",

@@ -85,7 +85,7 @@ const Card = ({
             correct={result.correct}
             count={result.count}
             name={result.name}
-            genders={result.genders}
+            handleNextRound={handleNextRound}
           />
         </motion.div>
       )}
