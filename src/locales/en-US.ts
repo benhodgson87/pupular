@@ -2,10 +2,11 @@ export default {
   AnswerCard: {
     correct: "Correct!",
     howManyCount_one: "There is just one pup named <0>{{name}}</0> in NYC!",
-    howManyCount_other:
-      "There are {{count}} pups named <0>{{name}}</0> in NYC!",
+    howManyCount_other: "There are {{count}} pups named <0>{{name}}</0> in NYC",
     incorrect: "Not this time",
     nextRound: "Next round",
+    singleDogDetailM: "He's a {{breed}}!",
+    singleDogDetailF: "She's a {{breed}}!",
   },
   Footer: {
     coffeeTitle: "Enjoying this game?",

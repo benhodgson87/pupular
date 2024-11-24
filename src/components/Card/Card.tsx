@@ -13,6 +13,7 @@ type ResultState = {
     M?: number;
     F?: number;
   };
+  breeds: Record<string, number>;
 };
 
 const Card = () => {

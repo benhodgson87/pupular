@@ -4,13 +4,22 @@ import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { CountdownButton } from "~/components/CountdownButton";
 import { TIME_BETWEEN_ROUND } from "~/config/game";
-import { howManyAnimation, nextRoundAnimation } from "./AnswerCard.motion";
+import {
+  howManyAnimation,
+  nextRoundAnimation,
+  singleDogDetailAnimation,
+} from "./AnswerCard.motion";
 
 type Props = {
   result: {
     correct: boolean;
-    name: string;
     count: number;
+    name: string;
+    genders: {
+      M?: number;
+      F?: number;
+    };
+    breeds: Record<string, number>;
   };
   handleNextRound: (method: "AUTO" | "MANUAL") => void;
 };
@@ -51,6 +60,23 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
           ]}
         />
       </motion.p>
+      {result.count === 1 &&
+      Object.keys(result.breeds).length > 0 &&
+      Object.keys(result.genders).length > 0 ? (
+        <motion.p
+          className="mb-8"
+          initial="initial"
+          animate="animate"
+          variants={singleDogDetailAnimation}
+        >
+          {t(
+            Object.keys(result.genders)[0] === "M"
+              ? "singleDogDetailM"
+              : "singleDogDetailF",
+            { breed: Object.keys(result.breeds)[0] }
+          )}
+        </motion.p>
+      ) : null}
       <motion.div
         initial="initial"
         animate="animate"
