@@ -79,7 +79,7 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
       Object.keys(result.breeds).length > 0 &&
       Object.keys(result.genders).length > 0 ? (
         <motion.p
-          className="flex items-center justify-center mb-8"
+          className="flex items-center justify-center mb-8 text-left"
           initial="initial"
           animate="animate"
           variants={singleDogDetailAnimation}
