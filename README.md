@@ -10,7 +10,7 @@ Pupular is a fun game built using NYC's [open data set of licensed dogs](https:/
 
 It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.netlify.com/). Data is handled via Netlify edge functions and [Upstash](https://upstash.com) Redis, with animations powered by [Motion](https://motion.dev), and future support for translation through [remix-i18next](https://github.com/sergiodxa/remix-i18next).
 
-## How it works
+## How it was built
 
 The licenses dataset is a bit of a mess, with historical entries for long expired licenses, some dogs with names like "Unknown" and "Name not provided, and others with multiple entries for currently valid licenses.
 
@@ -27,7 +27,15 @@ SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 ```
 
-The processing script outputs this as a single entry.
+This data is processed via a Node script.
+
+The processing logic and input/outputs for this [can be found in the lib folder](./lib/data/). Don't use it to cheat!
+
+| Filtering data                                                | Reducing data                                               |
+| ------------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Filtering Data](./public/screenshots/process-filtering.png) | ![Reducing Data](./public/screenshots/process-reducing.png) |
+
+This results in the following output, where the expired licenses have been omitted, and the three currently valid licenses have been combined to a single entry, as there are obvious matches in the name, gender, birth year, breed and ZIP code fields.
 
 ```json
 {
@@ -43,12 +51,6 @@ The processing script outputs this as a single entry.
 ```
 
 In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog.
-
-The processing logic and input/outputs for this [can be found in the lib folder](./lib/data/). Don't use it to cheat!
-
-| Filtering data                                                | Reducing data                                               |
-| ------------------------------------------------------------- | ----------------------------------------------------------- |
-| ![Filtering Data](./public/screenshots/process-filtering.png) | ![Reducing Data](./public/screenshots/process-reducing.png) |
 
 This data was then fed into Redis where it can be queried via `RANDOMKEY` to get a (mostly) random entry for each round. Redis does occasionally return the same key again within a short timeframe.
 
