@@ -22,11 +22,20 @@ const GET = async () => {
 
     const answers = createAnswers(Number(data.count));
 
-    return Response.json({
-      id: key.replace(/^dog:/, ""),
-      name: data.name,
-      answers,
-    });
+    return Response.json(
+      {
+        id: key.replace(/^dog:/, ""),
+        name: data.name,
+        answers,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=0, must-revalidate",
+          "Netlify-CDN-Cache-Control": "public, max-age=1, must-revalidate",
+        },
+      },
+    );
   } catch (e) {
     console.error(e);
 

@@ -93,9 +93,9 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
           {t(
             getCorrectSingleDogMessage(
               Object.keys(result.breeds)[0],
-              Object.keys(result.genders)[0]
+              Object.keys(result.genders)[0],
             ),
-            { breed: Object.keys(result.breeds)[0] }
+            { breed: Object.keys(result.breeds)[0] },
           )}
         </motion.p>
       ) : null}
