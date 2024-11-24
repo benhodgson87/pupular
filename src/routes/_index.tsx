@@ -9,7 +9,10 @@ import { GameContextProvider } from "~/context/GameContext";
 export const meta: MetaFunction = () => {
   return [
     { title: "Pupular" },
-    { name: "description", content: "Welcome to Remix!" },
+    {
+      name: "description",
+      content: "Can you guess which dogs have the most popular names?",
+    },
   ];
 };
 
