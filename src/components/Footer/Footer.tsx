@@ -49,6 +49,11 @@ const Footer = () => {
               target="_blank"
               className="underline"
             />,
+            <Link
+              to="https://bsky.app/profile/benhodgson.net"
+              target="_blank"
+              className="underline"
+            />,
           ]}
         />
       </div>
