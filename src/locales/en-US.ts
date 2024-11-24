@@ -9,7 +9,7 @@ export default {
   },
   GameOver: {
     gameOver: "Game over!",
-    roundScore: "You got {{score}} right, out of {{rounds}}",
+    roundScore: "You got {{score}} out of {{rounds}} right",
   },
   PlayCard: {
     answerTitle: "Take a guess",

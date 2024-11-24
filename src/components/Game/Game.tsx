@@ -11,28 +11,23 @@ const WrappedGame = () => {
   const { currentRound, isGameOver } = useGameContext();
 
   return (
-    <>
-      <GameHeader />
-      <main className="w-full max-w-96 p-4">
-        <AnimatePresence mode="wait">
-          {isGameOver ? (
-            <motion.div
-              className="w-full text-center"
-              key="gameOver"
-              initial="initial"
-              animate="animate"
-              variants={gameOverAnimation}
-            >
-              <GameOver />
-            </motion.div>
-          ) : currentRound ? (
-            <motion.div key="card" exit={{ scale: 0, opacity: 0 }}>
-              <Card key={currentRound} />
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </main>
-    </>
+    <AnimatePresence mode="wait">
+      {isGameOver ? (
+        <motion.div
+          className="w-full text-center"
+          key="gameOver"
+          initial="initial"
+          animate="animate"
+          variants={gameOverAnimation}
+        >
+          <GameOver />
+        </motion.div>
+      ) : currentRound ? (
+        <motion.div key="card" exit={{ scale: 0, opacity: 0 }}>
+          <Card key={currentRound} />
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 };
 
