@@ -1,3 +1,5 @@
+import { useLoaderData } from "@remix-run/react";
+import cookies from "js-cookie";
 import {
   type ReactNode,
   createContext,
@@ -5,9 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import cookies from "js-cookie";
 import { DEFAULT_GAME_TIME, HIGH_SCORE_COOKIE } from "~/config/game";
-import { useLoaderData } from "@remix-run/react";
 import { loader } from "~/routes/_index";
 
 type ProviderProps = {
