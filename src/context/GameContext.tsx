@@ -166,7 +166,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
         sameSite: "Strict",
       });
       gtag("event", "unlock_achievement", {
-        type: "post_score",
+        type: "high_score",
         score: currentScore,
         level: currentRound,
       });
