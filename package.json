@@ -38,6 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@remix-run/dev": "^2.15.0",
+    "@tailwind-plugin/expose-colors": "^1.1.8",
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",

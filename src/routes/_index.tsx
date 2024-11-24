@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import cookies from "cookie";
+import cookie from "cookie";
 import { Footer } from "~/components/Footer";
 import { Game } from "~/components/Game";
 import { GameHeader } from "~/components/GameHeader";
@@ -14,8 +14,9 @@ export const meta: MetaFunction = () => {
 };
 
 export function loader({ request }: LoaderFunctionArgs) {
-  const parsedCookies = cookies.parse(request.headers.get("cookie") ?? "");
+  const parsedCookies = cookie.parse(request.headers.get("cookie") ?? "");
   const highScore = parsedCookies[HIGH_SCORE_COOKIE];
+
   return Response.json({ highScore });
 }
 

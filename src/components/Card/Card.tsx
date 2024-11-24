@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { TIME_BETWEEN_ROUND } from "~/config/game";
 import { useGameContext } from "~/context/GameContext";
 import { AnswerCard } from "./AnswerCard";
 import { answerCardAnimation, playCardEnterAnimation } from "./Card.motion";
@@ -14,8 +15,6 @@ type ResultState = {
     F?: number;
   };
 };
-
-const SHOW_RESULT_SCREEN_FOR = 2500;
 
 const Card = () => {
   const { currentDog, handleCorrectAnswer, handleNextRound } = useGameContext();
@@ -39,7 +38,7 @@ const Card = () => {
     if (result?.count) {
       const nextRoundTimer = setTimeout(() => {
         handleNextRound();
-      }, SHOW_RESULT_SCREEN_FOR);
+      }, TIME_BETWEEN_ROUND * 1000);
 
       return () => clearTimeout(nextRoundTimer);
     }

@@ -1,3 +1,4 @@
+import exposeColors from "@tailwind-plugin/expose-colors";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -10,5 +11,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [exposeColors()],
 } satisfies Config;

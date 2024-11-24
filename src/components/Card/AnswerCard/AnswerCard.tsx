@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
+import { CountdownButton } from "~/components/CountdownButton";
+import { TIME_BETWEEN_ROUND } from "~/config/game";
 import { howManyAnimation, nextRoundAnimation } from "./AnswerCard.motion";
 
 type Props = {
@@ -34,15 +36,18 @@ const AnswerCard = ({ correct, name, count, handleNextRound }: Props) => {
           ]}
         ></Trans>
       </motion.p>
-      <motion.button
+      <motion.div
         initial="initial"
         animate="animate"
         variants={nextRoundAnimation}
-        className="w-full max-w-48 bg-orange-400 dark:bg-orange-700 hover:bg-orange-300 dark:hover:bg-orange-400 text-white text-xl font-bold py-4 px-5 rounded-full hover:scale-105"
-        onClick={handleNextRound}
       >
-        {t("nextRound")}
-      </motion.button>
+        <CountdownButton
+          countdown={TIME_BETWEEN_ROUND}
+          onClick={handleNextRound}
+        >
+          {t("nextRound")}
+        </CountdownButton>
+      </motion.div>
     </div>
   );
 };
