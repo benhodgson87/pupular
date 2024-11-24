@@ -42,7 +42,7 @@ The processing script correctly turns this into a single entry.
 
 In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
 
-|                                                               |                                                             |
+| Filtering data                                                | Reducing data                                               |
 | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | ![Filtering Data](./public/screenshots/process-filtering.png) | ![Reducing Data](./public/screenshots/process-reducing.png) |
 
