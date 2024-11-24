@@ -14,7 +14,11 @@ It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.n
 
 The licenses dataset is a bit of a mess, with historical entries for long expired licenses, and some dogs with multiple entries for current licenses. With some processing the data has been converted to fairly unique individual entries and reduced into a set of counts for each name, along with some currently unused additional metadata for individual breed counts, and gender splits.
 
-In total almost 617,000 entries in the original CSV have been reduced down to 9,397 individual name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
+|                                                               |                                                             |
+| ------------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Filtering Data](./public/screenshots/process-filtering.png) | ![Reducing Data](./public/screenshots/process-reducing.png) |
+
+In total there are 616,890 entries in the original data, which reduce down to 43,066 individual dogs with 9,397 unique name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
 
 This data was then fed into Redis where it can be queried via `RANDOMKEY` to get a (mostly) random entry for each round. Redis does occasionally return the same key again within a short timeframe.
 
