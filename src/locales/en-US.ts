@@ -6,7 +6,9 @@ export default {
     incorrect: "Not this time",
     nextRound: "Next round",
     singleDogDetailM: "He's a {{breed}}!",
+    singleDogDetailAnM: "He's an {{breed}}!",
     singleDogDetailF: "She's a {{breed}}!",
+    singleDogDetailAnF: "She's an {{breed}}!",
   },
   Footer: {
     coffeeTitle: "Enjoying this game?",
@@ -15,7 +17,7 @@ export default {
   GameOver: {
     gameOver: "Game over!",
     playAgain: "Play again",
-    roundScore: "You got {{score}} out of {{rounds}} right",
+    roundScore: "You got {{score}} out of {{rounds}} correct",
   },
   GameStart: {
     intro:

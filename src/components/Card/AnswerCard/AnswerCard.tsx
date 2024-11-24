@@ -24,6 +24,21 @@ type Props = {
   handleNextRound: (method: "AUTO" | "MANUAL") => void;
 };
 
+const getCorrectSingleDogMessage = (breed: string, gender: string) => {
+  const vowels = ["A", "E", "I", "O", "U"];
+  const firstCharacter = Array.from(breed)[0];
+
+  switch (gender) {
+    case "M":
+      if (vowels.includes(firstCharacter)) return "singleDogDetailAnM";
+      return "singleDogDetailM";
+    case "F":
+    default:
+      if (vowels.includes(firstCharacter)) return "singleDogDetailAnF";
+      return "singleDogDetailF";
+  }
+};
+
 const AnswerCard = ({ result, handleNextRound }: Props) => {
   const { t } = useTranslation(undefined, { keyPrefix: "AnswerCard" });
 
@@ -76,9 +91,10 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
             alt="Bone icon"
           />
           {t(
-            Object.keys(result.genders)[0] === "M"
-              ? "singleDogDetailM"
-              : "singleDogDetailF",
+            getCorrectSingleDogMessage(
+              Object.keys(result.breeds)[0],
+              Object.keys(result.genders)[0]
+            ),
             { breed: Object.keys(result.breeds)[0] }
           )}
         </motion.p>
