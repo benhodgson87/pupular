@@ -14,14 +14,9 @@ const Game = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {playState === "START" ? (
-        <motion.div
-          className="flex items-center w-full"
-          key="play"
-          exit="exit"
-          variants={playViewAnimation}
-        >
-          <GameStart />
+      {playState === "PLAYING" ? (
+        <motion.div key="card" exit="exit" variants={gameCardAnimation}>
+          <Card key="card" />
         </motion.div>
       ) : playState === "END" ? (
         <motion.div
@@ -33,11 +28,16 @@ const Game = () => {
         >
           <GameOver />
         </motion.div>
-      ) : playState === "PLAYING" ? (
-        <motion.div key="card" exit="exit" variants={gameCardAnimation}>
-          <Card key="card" />
+      ) : (
+        <motion.div
+          className="flex items-center w-full"
+          key="play"
+          exit="exit"
+          variants={playViewAnimation}
+        >
+          <GameStart />
         </motion.div>
-      ) : null}
+      )}
     </AnimatePresence>
   );
 };
