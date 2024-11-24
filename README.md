@@ -14,11 +14,36 @@ It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.n
 
 The licenses dataset is a bit of a mess, with historical entries for long expired licenses, and some dogs with multiple entries for current licenses. With some processing the data has been converted to reasonably unique individual entries and reduced into a set of counts for each name, along with additional metadata for individual breed counts for each name, and gender counts.
 
+For example the CSV contains the following data, with some noticeable commonalities;
+
+```csv
+SACHEL,M,2008,Shih Tzu Crossbreed,10016,01/14/2016,01/14/2017,2016
+SACHEL,M,2007,Shih Tzu,10016,12/28/2016,12/28/2021,2016
+SACHEL,M,2007,Shih Tzu,10016,04/09/2022,12/28/2024,2023
+SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
+SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
+```
+
+The processing script correctly turns this into a single entry.
+
+```json
+{
+  "name": "Sachel",
+  "count": 1,
+  "breeds": {
+    "Shih Tzu": 1
+  },
+  "genders": {
+    "M": 1
+  }
+}
+```
+
+In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
+
 |                                                               |                                                             |
 | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | ![Filtering Data](./public/screenshots/process-filtering.png) | ![Reducing Data](./public/screenshots/process-reducing.png) |
-
-In total there are 616,890 entries in the original data, which reduce down to 43,066 individual dogs with 9,397 unique name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
 
 This data was then fed into Redis where it can be queried via `RANDOMKEY` to get a (mostly) random entry for each round. Redis does occasionally return the same key again within a short timeframe.
 
