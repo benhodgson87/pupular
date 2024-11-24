@@ -14,8 +14,8 @@ const GameStart = () => {
         i18nKey="GameStart.intro"
         values={{ total: CURRENT_TOTAL_COUNT_EST }}
         components={[
-          <p className="text-white text-lg font-bold mb-6" />,
-          <p className="text-white text-xl mb-10" />,
+          <p className="text-white dark:text-gray-300 text-lg font-bold mb-6" />,
+          <p className="text-white dark:text-gray-300 text-xl mb-10" />,
         ]}
       />
       <button
