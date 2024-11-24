@@ -1,3 +1,3 @@
 export const HIGH_SCORE_COOKIE = "PUPULAR_HIGH_SCORE";
 
-export const DEFAULT_GAME_TIME = 10;
+export const DEFAULT_GAME_TIME = 120;
