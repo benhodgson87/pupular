@@ -11,7 +11,42 @@ export const meta: MetaFunction = () => {
     { title: "Pupular" },
     {
       name: "description",
-      content: "Can you guess which dogs have the most popular names?",
+      content:
+        "Can you guess which dogs have the most popular names, using New York City's open dataset of real dog names?",
+    },
+    {
+      property: "og:title",
+      content: "Pupular: Let's play!",
+    },
+    {
+      property: "og:image",
+      content: "https://pupular.name/og-image.jpg",
+    },
+    {
+      property: "twitter:title",
+      content: "Pupular: Let's play!",
+    },
+    {
+      property: "twitter:card",
+      content: "summary",
+    },
+    {
+      property: "twitter:description",
+      content:
+        "Can you guess which dogs have the most popular names, using New York City's open dataset of real dog names?",
+    },
+    {
+      property: "twitter:image",
+      content: "https://pupular.name/tw-summary-image.jpg",
+    },
+    {
+      property: "twitter:creator",
+      content: "@benhodgson",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://pupular.name",
     },
   ];
 };
