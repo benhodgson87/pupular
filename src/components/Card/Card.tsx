@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { TIME_BETWEEN_ROUND } from "~/config/game";
+import { useState } from "react";
 import { useGameContext } from "~/context/GameContext";
 import { AnswerCard } from "./AnswerCard";
 import { answerCardAnimation, playCardEnterAnimation } from "./Card.motion";
@@ -17,7 +16,12 @@ type ResultState = {
 };
 
 const Card = () => {
-  const { currentDog, handleCorrectAnswer, handleNextRound } = useGameContext();
+  const {
+    currentDog,
+    handleCorrectAnswer,
+    handleIncorrectAnswer,
+    handleNextRound,
+  } = useGameContext();
 
   const [result, setResult] = useState<ResultState>();
 
@@ -30,28 +34,21 @@ const Card = () => {
     });
     const outcome = await data.json();
 
-    if (outcome.correct) handleCorrectAnswer();
+    if (outcome.correct) {
+      handleCorrectAnswer();
+    } else {
+      handleIncorrectAnswer();
+    }
+
     setResult(outcome);
   };
 
-  useEffect(() => {
-    if (result?.count) {
-      const nextRoundTimer = setTimeout(() => {
-        handleNextRound();
-      }, TIME_BETWEEN_ROUND * 1000);
+  const handleAnswerTimeout = (method: "AUTO" | "MANUAL") => {
+    handleNextRound(method);
+    setResult(undefined);
+  };
 
-      return () => clearTimeout(nextRoundTimer);
-    }
-  }, [result]);
-
-  if (
-    !currentDog ||
-    !currentDog.id ||
-    !currentDog.name ||
-    !currentDog.avatar ||
-    !currentDog.answers
-  )
-    return null;
+  if (!currentDog) return null;
 
   return (
     <AnimatePresence mode="popLayout">
@@ -63,12 +60,7 @@ const Card = () => {
           exit="exit"
           variants={playCardEnterAnimation}
         >
-          <PlayCard
-            name={currentDog.name}
-            avatar={currentDog.avatar}
-            answers={currentDog.answers}
-            handleAnswer={handleAnswer}
-          />
+          <PlayCard handleAnswer={handleAnswer} />
         </motion.div>
       ) : (
         <motion.div
@@ -78,12 +70,7 @@ const Card = () => {
           exit="exit"
           variants={answerCardAnimation}
         >
-          <AnswerCard
-            correct={result.correct}
-            count={result.count}
-            name={result.name}
-            handleNextRound={handleNextRound}
-          />
+          <AnswerCard result={result} handleNextRound={handleAnswerTimeout} />
         </motion.div>
       )}
     </AnimatePresence>

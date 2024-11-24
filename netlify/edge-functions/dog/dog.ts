@@ -16,6 +16,10 @@ const GET = async () => {
       throw new Error("No data returned from store");
     }
 
+    console.log(
+      `Retrieved random entry: ${key} (${String(data.name).toUpperCase()})`
+    );
+
     const answers = createAnswers(Number(data.count));
 
     return Response.json({
@@ -28,7 +32,7 @@ const GET = async () => {
 
     return Response.json(
       { error: "Internal Server Error", message: e },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };
@@ -50,9 +54,11 @@ const POST = async (request: Request, context: Context) => {
 
       return Response.json(
         { error: "Missing `answer` value" },
-        { status: 400 },
+        { status: 400 }
       );
     }
+
+    console.log(`Submitted Answer for ${key}: ${body.answer}`);
 
     const data = await redis.hgetall(`dog:${key}`);
 
@@ -75,7 +81,7 @@ const POST = async (request: Request, context: Context) => {
 
     return Response.json(
       { error: "Internal Server Error", message: e },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };
@@ -84,16 +90,16 @@ export default async (request: Request, context: Context) => {
   if (!ALLOWED_METHODS.includes(request.method)) {
     console.error(
       `Request method must be one of ${ALLOWED_METHODS.join(", ")}.`,
-      `Received ${request.method}.`,
+      `Received ${request.method}.`
     );
 
     return Response.json(
       {
         error: `Request method must be one of ${ALLOWED_METHODS.join(
-          ", ",
+          ", "
         )}. Received ${request.method}.`,
       },
-      { status: 405 },
+      { status: 405 }
     );
   }
 

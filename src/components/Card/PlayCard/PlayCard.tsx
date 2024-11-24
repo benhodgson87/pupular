@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 // @ts-expect-error - React Fitty types don't work
 import { Textfit } from "react-textfit";
+import { useGameContext } from "~/context/GameContext";
 
 type Props = {
-  name: string;
-  avatar?: string;
-  answers: Array<number>;
   handleAnswer: (answer: number) => void;
 };
 
@@ -23,8 +21,10 @@ const motivators = [
   "motivators.theTopDog",
 ];
 
-const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
+const PlayCard = ({ handleAnswer }: Props) => {
   const { t } = useTranslation(undefined, { keyPrefix: "PlayCard" });
+
+  const { currentDog } = useGameContext();
 
   const [currentMotivator, setCurrentMotivator] = useState<string | null>(null);
 
@@ -35,12 +35,14 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
     setCurrentMotivator(selectedMotivator);
   }, []);
 
+  if (!currentDog) return null;
+
   return (
     <div className="flex flex-col items-center w-full bg-white dark:bg-gray-700 bg-opacity-90 border-2 border-white dark:border-gray-600 border-solid rounded-lg shadow-lg p-6">
-      {avatar ? (
+      {currentDog.avatar ? (
         <img
           className="h-40 w-40 rounded-full object-cover mb-4"
-          src={avatar}
+          src={currentDog.avatar}
           alt="A picture of a dog"
         />
       ) : null}
@@ -48,17 +50,17 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
         <h2
           className={classNames(
             "font-cherry-bomb-one text-xl font-semibold mb-6 transition-all",
-            { uppercase: name.length === 2 },
+            { uppercase: currentDog.name.length === 2 }
           )}
         >
           <Textfit mode="single" min={24} max={48}>
-            {name}
+            {currentDog.name}
           </Textfit>
         </h2>
         <p>
           {currentMotivator
             ? t(currentMotivator, {
-                name,
+                name: currentDog.name,
               })
             : null}
         </p>
@@ -66,7 +68,7 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
       <section className="w-full text-center">
         <h2 className="text-xs font-bold mb-3">{t("answerTitle")}</h2>
         <div className="flex w-full justify-between items-center gap-5">
-          {answers.map((answer, i) => (
+          {currentDog.answers.map((answer, i) => (
             <button
               key={answer}
               className={classNames(
@@ -75,7 +77,7 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
                   "bg-blue-500 dark:bg-blue-600": i === 0,
                   "bg-blue-400 dark:bg-blue-600": i === 1,
                   "bg-blue-600 dark:bg-blue-600": i === 2,
-                },
+                }
               )}
               onClick={() => handleAnswer(answer)}
             >

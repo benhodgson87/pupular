@@ -16,6 +16,7 @@ import { MotionConfig } from "framer-motion";
 import { ReactNode } from "react";
 
 export const links: LinksFunction = () => [
+  { rel: "preconnect", href: "https://www.googletagmanager.com" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -33,8 +34,8 @@ export const handle = { i18n: ["translation"] };
 export async function loader({ request }: LoaderFunctionArgs) {
   const locale = await i18nServer.getLocale(request);
   return Response.json(
-    { locale },
-    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } },
+    { locale, GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID },
+    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } }
   );
 }
 
@@ -46,6 +47,22 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${loaderData.GOOGLE_ANALYTICS_ID}`}
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${loaderData.GOOGLE_ANALYTICS_ID}');
+          `,
+          }}
+        />
+
         <Meta />
         <Links />
       </head>

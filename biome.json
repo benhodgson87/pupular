@@ -69,7 +69,10 @@
       }
     }
   },
-  "javascript": { "formatter": { "quoteStyle": "double" } },
+  "javascript": {
+    "formatter": { "quoteStyle": "double" },
+    "globals": ["gtag"]
+  },
   "overrides": [
     { "include": ["**/*.{js,jsx,ts,tsx}"] },
     { "include": ["**/*.{ts,tsx}"] }

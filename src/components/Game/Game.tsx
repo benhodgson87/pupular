@@ -2,14 +2,28 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Card } from "~/components/Card";
 import { GameOver } from "~/components/GameOver";
 import { useGameContext } from "~/context/GameContext";
-import { gameOverAnimation } from "./Game.motion";
+import {
+  gameCardAnimation,
+  gameOverAnimation,
+  playViewAnimation,
+} from "./Game.motion";
+import { GameStart } from "../GameStart";
 
 const Game = () => {
-  const { currentDog, timeRemaining } = useGameContext();
+  const { playState } = useGameContext();
 
   return (
     <AnimatePresence mode="wait">
-      {timeRemaining === 0 ? (
+      {playState === "START" ? (
+        <motion.div
+          className="flex items-center w-full"
+          key="play"
+          exit="exit"
+          variants={playViewAnimation}
+        >
+          <GameStart />
+        </motion.div>
+      ) : playState === "END" ? (
         <motion.div
           className="w-full text-center"
           key="gameOver"
@@ -19,9 +33,9 @@ const Game = () => {
         >
           <GameOver />
         </motion.div>
-      ) : currentDog?.id ? (
-        <motion.div key="card" exit={{ scale: 0, opacity: 0 }}>
-          <Card key={currentDog.id} />
+      ) : playState === "PLAYING" ? (
+        <motion.div key="card" exit="exit" variants={gameCardAnimation}>
+          <Card key="card" />
         </motion.div>
       ) : null}
     </AnimatePresence>
