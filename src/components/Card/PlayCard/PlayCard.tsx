@@ -66,7 +66,9 @@ const PlayCard = ({ handleAnswer }: Props) => {
         </p>
       </div>
       <section className="w-full text-center">
-        <h2 className="text-xs font-bold mb-3">{t("answerTitle")}</h2>
+        <h2 className="text-slate-400 text-xs font-bold mb-3">
+          {t("answerTitle")}
+        </h2>
         <div className="flex w-full justify-between items-center gap-5">
           {currentDog.answers.map((answer, i) => (
             <button

@@ -23,7 +23,7 @@ type GameContextType = {
   currentRound: number;
   currentScore: number;
   timeRemaining: number;
-  handleNewGame: () => void;
+  handleNewGame: (isReplay?: boolean) => void;
   handleNextRound: (method: NextRoundMethod) => void;
   handleCorrectAnswer: () => void;
   handleIncorrectAnswer: () => void;
@@ -112,14 +112,17 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     if (playState === "PLAYING" && timeRemaining === 0) handleGameOver();
   }, [timeRemaining, playState]);
 
-  const handleNewGame = () => {
+  const handleNewGame = (isReplay?: boolean) => {
     setCurrentDog(undefined);
     setTimeRemaining(defaultTimeRemaining);
     setCurrentRound(defaultCurrentRound);
     setCurrentScore(defaultCurrentScore);
     setPlayState("PLAYING");
 
-    gtag("event", "play_start", { highScore: loaderData.highScore || 0 });
+    gtag("event", "play_start", {
+      is_replay: isReplay,
+      high_score: loaderData.highScore || 0,
+    });
   };
 
   const handleNextRound = (method: NextRoundMethod = "AUTO") => {
@@ -153,7 +156,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     gtag("event", "play_end", {
       rounds: currentRound,
       score: currentScore,
-      highScore: loaderData.highScore || 0,
+      high_score: loaderData.highScore || 0,
     });
 
     if (!loaderData.highScore || currentScore > loaderData.highScore) {

@@ -13,10 +13,12 @@ export default {
     roundScore: "You got {{score}} out of {{rounds}} right",
   },
   GameStart: {
+    intro:
+      "<0>New York City publishes open data of all licensed dogs in the city, with over {{total, number(maximumFractionDigits: 0)}} unique names.</0><1>Can you guess which dogs have the most popular names?</1>",
     startGame: "Let's play!",
   },
   PlayCard: {
-    answerTitle: "Take a guess",
+    answerTitle: "How many dogs have this name?",
     motivators: {
       hmmmmm: "{{name}}?! Hmm...",
       howManyPeople: "How many people would name a dog {{name}}?",

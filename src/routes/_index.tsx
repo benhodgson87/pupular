@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 
 export function loader({ request }: LoaderFunctionArgs) {
   const parsedCookies = cookie.parse(request.headers.get("cookie") ?? "");
-  const highScore = parsedCookies[HIGH_SCORE_COOKIE];
+  const highScore = Number(parsedCookies[HIGH_SCORE_COOKIE]);
 
   return Response.json({ highScore });
 }

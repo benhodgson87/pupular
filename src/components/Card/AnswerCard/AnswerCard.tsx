@@ -49,7 +49,7 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
               className={classNames({ uppercase: result.name.length === 2 })}
             />,
           ]}
-        ></Trans>
+        />
       </motion.p>
       <motion.div
         initial="initial"
