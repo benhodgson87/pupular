@@ -2,6 +2,8 @@ import { Redis } from "https://deno.land/x/upstash_redis@v1.3.2/mod.ts";
 import type { Context } from "https://edge.netlify.com";
 import { createAnswers } from "./createAnswers.ts";
 
+const ALLOWED_METHODS = ["GET", "POST"];
+
 const GET = async () => {
   try {
     const redis = Redis.fromEnv();
@@ -79,11 +81,18 @@ const POST = async (request: Request, context: Context) => {
 };
 
 export default async (request: Request, context: Context) => {
-  if (!["GET", "POST"].includes(request.method)) {
-    console.error("Request method must be GET or POST", request.method);
+  if (!ALLOWED_METHODS.includes(request.method)) {
+    console.error(
+      `Request method must be one of ${ALLOWED_METHODS.join(", ")}.`,
+      `Received "${request.method}"`,
+    );
 
     return Response.json(
-      { error: "Request method must be GET or POST" },
+      {
+        error: `Request method must be one of ${ALLOWED_METHODS.join(
+          ", ",
+        )}. Received "${request.method}"`,
+      },
       { status: 405 },
     );
   }
