@@ -17,6 +17,7 @@ The licenses dataset is a bit of a mess, with historical entries for long expire
 For example the CSV contains the following data, with some noticeable commonalities;
 
 ```csv
+AnimalName,AnimalGender,AnimalBirthYear,BreedName,ZipCode,LicenseIssuedDate,LicenseExpiredDate,Extract Year
 SACHEL,M,2008,Shih Tzu Crossbreed,10016,01/14/2016,01/14/2017,2016
 SACHEL,M,2007,Shih Tzu,10016,12/28/2016,12/28/2021,2016
 SACHEL,M,2007,Shih Tzu,10016,04/09/2022,12/28/2024,2023
