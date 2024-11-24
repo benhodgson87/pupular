@@ -12,7 +12,7 @@ It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.n
 
 ## How it works
 
-The licenses dataset is a bit of a mess, with historical entries for long expired licenses, and some dogs with multiple entries for current licenses. With some processing the data has been converted to fairly unique individual entries and reduced into a set of counts for each name, along with some currently unused additional metadata for individual breed counts, and gender splits.
+The licenses dataset is a bit of a mess, with historical entries for long expired licenses, and some dogs with multiple entries for current licenses. With some processing the data has been converted to reasonably unique individual entries and reduced into a set of counts for each name, along with additional metadata for individual breed counts for each name, and gender counts.
 
 |                                                               |                                                             |
 | ------------------------------------------------------------- | ----------------------------------------------------------- |
