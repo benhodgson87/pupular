@@ -32,7 +32,7 @@ async function main() {
         <StrictMode>
           <RemixBrowser />
         </StrictMode>
-      </I18nextProvider>
+      </I18nextProvider>,
     );
   });
 }

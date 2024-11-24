@@ -1,8 +1,8 @@
 import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
-import { coffeeLinkAnimation } from "./Footer.motion";
 import { useGameContext } from "~/context/GameContext";
+import { coffeeLinkAnimation } from "./Footer.motion";
 
 const Footer = () => {
   const { t } = useTranslation(undefined, { keyPrefix: "Footer" });
