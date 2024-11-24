@@ -3,6 +3,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { DEFAULT_GAME_TIME } from "~/config/game";
@@ -85,7 +86,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
       setTimeRemaining((current) => (current > 0 ? current - 1 : 0));
     }, 1000);
 
-    return () => clearTimeout(gameTimer);
+    return () => clearInterval(gameTimer);
   }, []);
 
   useEffect(() => {

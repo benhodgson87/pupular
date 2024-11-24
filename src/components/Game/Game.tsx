@@ -1,14 +1,11 @@
-"use client";
-
 import { AnimatePresence, motion } from "framer-motion";
 import { Card } from "~/components/Card";
-import { GameHeader } from "~/components/GameHeader";
 import { GameOver } from "~/components/GameOver";
-import { GameContextProvider, useGameContext } from "~/context/GameContext";
+import { useGameContext } from "~/context/GameContext";
 import { gameOverAnimation } from "./Game.motion";
 
-const WrappedGame = () => {
-  const { currentRound, isGameOver } = useGameContext();
+const Game = () => {
+  const { currentDog, isGameOver } = useGameContext();
 
   return (
     <AnimatePresence mode="wait">
@@ -22,19 +19,13 @@ const WrappedGame = () => {
         >
           <GameOver />
         </motion.div>
-      ) : currentRound ? (
+      ) : currentDog?.id ? (
         <motion.div key="card" exit={{ scale: 0, opacity: 0 }}>
-          <Card key={currentRound} />
+          <Card key={currentDog.id} />
         </motion.div>
       ) : null}
     </AnimatePresence>
   );
 };
-
-const Game = () => (
-  <GameContextProvider>
-    <WrappedGame />
-  </GameContextProvider>
-);
 
 export { Game };

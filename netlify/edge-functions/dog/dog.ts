@@ -36,11 +36,16 @@ const POST = async (request: Request, context: Context) => {
     const redis = Redis.fromEnv();
 
     const key = context.params.id;
-    if (!key || key.length === 0)
+    if (!key || key.length === 0) {
+      console.error("Missing ID parameter");
+
       return Response.json({ error: "Missing ID parameter" }, { status: 400 });
+    }
 
     const body = await request.json();
     if (!body.answer) {
+      console.error("Missing answer value");
+
       return Response.json(
         { error: "Missing `answer` value" },
         { status: 400 },
@@ -75,6 +80,8 @@ const POST = async (request: Request, context: Context) => {
 
 export default async (request: Request, context: Context) => {
   if (!["GET", "POST"].includes(request.method)) {
+    console.error("Request method must be GET or POST", request.method);
+
     return Response.json(
       { error: "Request method must be GET or POST" },
       { status: 405 },

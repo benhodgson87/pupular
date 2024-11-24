@@ -32,7 +32,7 @@ const Card = () => {
     const outcome = await data.json();
 
     if (outcome.correct) handleCorrectAnswer();
-    setResult(outcome as ResultState);
+    setResult(outcome);
   };
 
   useEffect(() => {
