@@ -19,14 +19,6 @@ const Footer = () => (
       <Link to="https://dog.ceo/dog-api/" target="_blank" className="underline">
         Dog API
       </Link>
-      . Enjoy playing?{" "}
-      <Link
-        to="https://ko-fi.com/benhodgson"
-        target="_blank"
-        className="underline"
-      >
-        Buy me a coffee
-      </Link>
       .
     </div>
   </footer>

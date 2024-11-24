@@ -8,7 +8,7 @@ const GameOver = () => {
 
   return (
     <>
-      <h1 className="font-cherry-bomb-one text-white text-5xl">
+      <h1 className="font-cherry-bomb-one text-white text-5xl mb-4">
         {t("gameOver")}
       </h1>
       <p className="text-white text-2xl">
