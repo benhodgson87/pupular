@@ -27,9 +27,7 @@ SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 ```
 
-This data is processed via a Node script.
-
-The processing logic and input/outputs for this [can be found in the lib folder](./lib/data/). Don't use it to cheat!
+This data is processed via a Node script, and the processing logic and input/outputs for this [can be found in the lib folder](./lib/data/). Don't use it to cheat!
 
 | Filtering data                                                | Reducing data                                               |
 | ------------------------------------------------------------- | ----------------------------------------------------------- |
