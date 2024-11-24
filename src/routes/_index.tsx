@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Game } from "~/components/Game";
-import { PlayFooter } from "~/components/PlayFooter";
+import { Footer } from "~/components/Footer";
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,7 +14,7 @@ export default function Index() {
     <div className="flex flex-col items-center justify-center h-dvh">
       <Game />
       <footer className="flex flex-1 flex-end justify-center">
-        <PlayFooter />
+        <Footer />
       </footer>
     </div>
   );

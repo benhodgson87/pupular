@@ -1,17 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useGameContext } from "~/context/GameContext";
 import { AnswerCard } from "./AnswerCard";
 import { answerCardAnimation, playCardEnterAnimation } from "./Card.motion";
 import { PlayCard } from "./PlayCard";
-
-type Props = {
-  id: string;
-  name: string;
-  answers: Array<number>;
-  avatar?: string;
-  handleNextRound: () => void;
-  handleCorrectAnswer: () => void;
-};
 
 type ResultState = {
   correct: boolean;
@@ -25,18 +17,15 @@ type ResultState = {
 
 const SHOW_RESULT_SCREEN_FOR = 2500;
 
-const Card = ({
-  id,
-  name,
-  answers,
-  avatar,
-  handleNextRound,
-  handleCorrectAnswer,
-}: Props) => {
+const Card = () => {
+  const { currentDog, handleCorrectAnswer, handleNextRound } = useGameContext();
+
   const [result, setResult] = useState<ResultState>();
 
   const handleAnswer = async (answer: number) => {
-    const data = await fetch(`/api/dog/${id}`, {
+    if (!currentDog) return;
+
+    const data = await fetch(`/api/dog/${currentDog.id}`, {
       method: "POST",
       body: JSON.stringify({ answer }),
     });
@@ -56,6 +45,15 @@ const Card = ({
     }
   }, [result]);
 
+  if (
+    !currentDog ||
+    !currentDog.id ||
+    !currentDog.name ||
+    !currentDog.avatar ||
+    !currentDog.answers
+  )
+    return null;
+
   return (
     <AnimatePresence mode="popLayout">
       {!result ? (
@@ -67,9 +65,9 @@ const Card = ({
           variants={playCardEnterAnimation}
         >
           <PlayCard
-            name={name}
-            avatar={avatar}
-            answers={answers}
+            name={currentDog.name}
+            avatar={currentDog.avatar}
+            answers={currentDog.answers}
             handleAnswer={handleAnswer}
           />
         </motion.div>

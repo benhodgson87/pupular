@@ -1,14 +1,13 @@
 import { useTranslation } from "react-i18next";
-
-type Props = {
-  timeRemaining: number;
-};
+import { useGameContext } from "~/context/GameContext";
 
 const timeFormatter = (time: number) =>
   new Date(time * 1000).toISOString().slice(time > 59 ? 14 : 15, 19);
 
-const Timer = ({ timeRemaining }: Props) => {
+const Timer = () => {
   const { t } = useTranslation(undefined, { keyPrefix: "Timer" });
+
+  const { timeRemaining } = useGameContext();
 
   return (
     <div className="text-white text-center">

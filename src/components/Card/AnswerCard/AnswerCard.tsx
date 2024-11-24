@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { motion } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
 import { howManyAnimation, nextRoundAnimation } from "./AnswerCard.motion";
@@ -28,7 +29,9 @@ const AnswerCard = ({ correct, name, count, handleNextRound }: Props) => {
           i18nKey="AnswerCard.howManyCount"
           count={count}
           values={{ name }}
-          components={[<strong />]}
+          components={[
+            <strong className={classNames({ uppercase: name.length === 2 })} />,
+          ]}
         ></Trans>
       </motion.p>
       <motion.button

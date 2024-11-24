@@ -45,7 +45,12 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
         />
       ) : null}
       <div className="text-center w-full mb-6 p-2">
-        <h2 className="font-cherry-bomb-one text-xl font-semibold mb-6 transition-all">
+        <h2
+          className={classNames(
+            "font-cherry-bomb-one text-xl font-semibold mb-6 transition-all",
+            { uppercase: name.length === 2 }
+          )}
+        >
           <Textfit mode="single" min={24} max={48}>
             {name}
           </Textfit>
@@ -70,7 +75,7 @@ const PlayCard = ({ name, avatar, answers, handleAnswer }: Props) => {
                   "bg-blue-500 dark:bg-blue-600": i === 0,
                   "bg-blue-400 dark:bg-blue-600": i === 1,
                   "bg-blue-600 dark:bg-blue-600": i === 2,
-                },
+                }
               )}
               onClick={() => handleAnswer(answer)}
             >

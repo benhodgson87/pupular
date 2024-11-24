@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-const PlayFooter = () => (
+const Footer = () => (
   <footer className="absolute bottom-0 left-0 flex flex-col items-center w-full px-6 md:px-1 py-2 ">
     <div className="max-w-2xl text-center text-xs text-white opacity-30 sm:opacity-60 dark:opacity-30 dark:hover:opacity-60 transition-opacity">
       Built by{" "}
@@ -32,4 +32,4 @@ const PlayFooter = () => (
   </footer>
 );
 
-export { PlayFooter };
+export { Footer };
