@@ -12,7 +12,9 @@ It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.n
 
 ## How it works
 
-The licenses dataset is a bit of a mess, with historical entries for long expired licenses, and some dogs with multiple entries for current licenses. With some processing the data has been converted to reasonably unique individual entries and reduced into a set of counts for each name, along with additional metadata for individual breed counts for each name, and gender counts.
+The licenses dataset is a bit of a mess, with historical entries for long expired licenses, some dogs with names like "Unknown" and "Name not provided, and others with multiple entries for currently valid licenses.
+
+With some processing the data has been converted to reasonably unique individual entries and reduced into a set of counts for each name, along with additional metadata for individual breed counts for each name, and gender counts.
 
 For example the CSV contains the following data, with some noticeable commonalities;
 
@@ -25,7 +27,7 @@ SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 SACHEL,M,2007,Shih Tzu,10016,10/19/2023,12/28/2025,2023
 ```
 
-The processing script correctly turns this into a single entry.
+The processing script outputs this as a single entry.
 
 ```json
 {
@@ -40,7 +42,9 @@ The processing script correctly turns this into a single entry.
 }
 ```
 
-In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog. The processing and data for this [can be found in the lib folder](./lib/data/).
+In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog.
+
+The processing logic and input/outputs for this [can be found in the lib folder](./lib/data/). Don't use it to cheat!
 
 | Filtering data                                                | Reducing data                                               |
 | ------------------------------------------------------------- | ----------------------------------------------------------- |
