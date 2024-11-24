@@ -18,8 +18,7 @@ export default async function handleRequest(
   remixContext: EntryContext,
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loadContext: AppLoadContext,
+  loadContext: AppLoadContext
 ) {
   const instance = createInstance();
   const lng = await i18nServer.getLocale(request);
@@ -34,7 +33,7 @@ export default async function handleRequest(
         responseHeaders,
         remixContext,
         loadContext,
-        instance,
+        instance
       )
     : handleBrowserRequest(
         request,
@@ -42,7 +41,7 @@ export default async function handleRequest(
         responseHeaders,
         remixContext,
         loadContext,
-        instance,
+        instance
       );
 }
 
@@ -52,7 +51,7 @@ async function handleBotRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
   _loadContext: AppLoadContext,
-  i18next: i18next,
+  i18next: i18next
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
@@ -76,7 +75,7 @@ async function handleBotRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            }),
+            })
           );
 
           pipe(body);
@@ -93,7 +92,7 @@ async function handleBotRequest(
             console.error(error);
           }
         },
-      },
+      }
     );
 
     setTimeout(abort, ABORT_DELAY);
@@ -106,7 +105,7 @@ async function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
   _loadContext: AppLoadContext,
-  i18next: i18next,
+  i18next: i18next
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
@@ -130,7 +129,7 @@ async function handleBrowserRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            }),
+            })
           );
 
           pipe(body);
@@ -147,7 +146,7 @@ async function handleBrowserRequest(
             console.error(error);
           }
         },
-      },
+      }
     );
 
     setTimeout(abort, ABORT_DELAY);

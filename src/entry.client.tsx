@@ -8,7 +8,6 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { defaultNS, fallbackLng, supportedLngs } from "~/config/i18n";
 
 async function main() {
-  // eslint-disable-next-line import/no-named-as-default-member
   await i18next
     .use(initReactI18next)
     .use(I18nextBrowserLanguageDetector)
@@ -33,7 +32,7 @@ async function main() {
         <StrictMode>
           <RemixBrowser />
         </StrictMode>
-      </I18nextProvider>,
+      </I18nextProvider>
     );
   });
 }

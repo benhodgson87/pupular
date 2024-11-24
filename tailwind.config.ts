@@ -11,5 +11,11 @@ export default {
       },
     },
   },
-  plugins: [exposeColors()],
+  plugins: [
+    exposeColors({
+      prefix: "--tw",
+      mode: "hex",
+      extract: ["orange"],
+    }),
+  ],
 } satisfies Config;
