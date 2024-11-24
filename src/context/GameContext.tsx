@@ -87,12 +87,14 @@ const GameContextProvider = ({ children }: ProviderProps) => {
         fetch("https://dog.ceo/api/breeds/image/random")
           .then((res) => res.json())
           .catch(() => null),
-      ]).then(([dog, picture]) => {
-        setCurrentDog({
-          ...dog,
-          avatar: picture.message || null,
-        });
-      });
+      ])
+        .then(([dog, picture]) => {
+          setCurrentDog({
+            ...dog,
+            avatar: picture.message || null,
+          });
+        })
+        .catch((e) => console.error(e));
     }
   }, [playState, currentRound]);
 
