@@ -64,11 +64,17 @@ const AnswerCard = ({ result, handleNextRound }: Props) => {
       Object.keys(result.breeds).length > 0 &&
       Object.keys(result.genders).length > 0 ? (
         <motion.p
-          className="mb-8"
+          className="flex items-center justify-center mb-8"
           initial="initial"
           animate="animate"
           variants={singleDogDetailAnimation}
         >
+          <img
+            src="/icons/bone.svg"
+            className="mr-2"
+            width={20}
+            alt="Bone icon"
+          />
           {t(
             Object.keys(result.genders)[0] === "M"
               ? "singleDogDetailM"
