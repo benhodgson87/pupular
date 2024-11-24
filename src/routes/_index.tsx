@@ -1,7 +1,9 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import cookies from "cookie";
 import { Footer } from "~/components/Footer";
 import { Game } from "~/components/Game";
 import { GameHeader } from "~/components/GameHeader";
+import { HIGH_SCORE_COOKIE } from "~/config/game";
 import { GameContextProvider } from "~/context/GameContext";
 
 export const meta: MetaFunction = () => {
@@ -10,6 +12,12 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
+
+export function loader({ request }: LoaderFunctionArgs) {
+  const parsedCookies = cookies.parse(request.headers.get("cookie") ?? "");
+  const highScore = parsedCookies[HIGH_SCORE_COOKIE];
+  return Response.json({ highScore });
+}
 
 export default function Index() {
   return (

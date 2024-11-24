@@ -5,11 +5,11 @@ import { useGameContext } from "~/context/GameContext";
 import { gameOverAnimation } from "./Game.motion";
 
 const Game = () => {
-  const { currentDog, isGameOver } = useGameContext();
+  const { currentDog, timeRemaining } = useGameContext();
 
   return (
     <AnimatePresence mode="wait">
-      {isGameOver ? (
+      {timeRemaining === 0 ? (
         <motion.div
           className="w-full text-center"
           key="gameOver"

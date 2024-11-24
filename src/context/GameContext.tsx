@@ -3,10 +3,12 @@ import {
   createContext,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
-import { DEFAULT_GAME_TIME } from "~/config/game";
+import cookies from "js-cookie";
+import { DEFAULT_GAME_TIME, HIGH_SCORE_COOKIE } from "~/config/game";
+import { useLoaderData } from "@remix-run/react";
+import { loader } from "~/routes/_index";
 
 type ProviderProps = {
   children?: ReactNode | undefined;
@@ -16,7 +18,6 @@ type GameContextType = {
   currentDog?: CurrentDog;
   currentRound: number;
   currentScore: number;
-  isGameOver: boolean;
   timeRemaining: number;
   handleNextRound: () => void;
   handleCorrectAnswer: () => void;
@@ -31,14 +32,12 @@ type CurrentDog = {
 
 const defaultCurrentRound = 1;
 const defaultCurrentScore = 0;
-const defaultIsGameOver = false;
 const defaultTimeRemaining = DEFAULT_GAME_TIME;
 
 const GameContext = createContext<GameContextType>({
   currentScore: defaultCurrentScore,
   currentDog: undefined,
   currentRound: defaultCurrentRound,
-  isGameOver: defaultIsGameOver,
   timeRemaining: defaultTimeRemaining,
   handleNextRound: () => {
     console.error("`handleNextRound` run with initialiser");
@@ -62,8 +61,9 @@ const GameContextProvider = ({ children }: ProviderProps) => {
   const [currentRound, setCurrentRound] = useState(defaultCurrentRound);
   const [currentScore, setCurrentScore] = useState(defaultCurrentScore);
   const [currentDog, setCurrentDog] = useState<CurrentDog>();
-  const [isGameOver, setIsGameOver] = useState(defaultIsGameOver);
   const [timeRemaining, setTimeRemaining] = useState(defaultTimeRemaining);
+
+  const loaderData = useLoaderData<typeof loader>();
 
   useEffect(() => {
     Promise.all([
@@ -90,7 +90,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (timeRemaining === 0) setIsGameOver(true);
+    if (timeRemaining === 0) handleGameOver();
   }, [timeRemaining]);
 
   const handleNextRound = () => {
@@ -102,11 +102,18 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     setCurrentScore((prev) => prev + 1);
   };
 
+  const handleGameOver = () => {
+    if (!loaderData.highScore || currentScore > loaderData.highScore) {
+      cookies.set(HIGH_SCORE_COOKIE, String(currentScore), {
+        sameSite: "Strict",
+      });
+    }
+  };
+
   const context = {
     currentDog,
     currentRound,
     currentScore,
-    isGameOver,
     timeRemaining,
     handleNextRound,
     handleCorrectAnswer,

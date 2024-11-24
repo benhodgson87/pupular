@@ -19,6 +19,7 @@
     "@remix-run/react": "^2.15.0",
     "@remix-run/serve": "^2.15.0",
     "classnames": "^2.5.1",
+    "cookie": "^1.0.2",
     "framer-motion": "^11.11.17",
     "i18next": "^24.0.0",
     "i18next-browser-languagedetector": "^8.0.0",
@@ -29,6 +30,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^15.1.1",
+    "react-router": "^6.28.0",
     "react-textfit": "^1.1.1",
     "remix-i18next": "^7.0.0",
     "zod": "^3.23.8"
@@ -36,6 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@remix-run/dev": "^2.15.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.19",
@@ -51,13 +54,6 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "overrides": {
-    "@remix-run/react": {
-      "react-router": ">=7.0.0",
-      "react-router-dom": ">=7.0.0"
-    },
-    "remix-i18next": {
-      "i18next": ">=24.0.0"
-    },
     "react-textfit": {
       "react": ">=15.0.0",
       "react-dom": ">=15.0.0"
