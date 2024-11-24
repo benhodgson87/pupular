@@ -9,7 +9,7 @@ const GameOver = () => {
   const handleReplay = () => handleNewGame(true);
 
   return (
-    <>
+    <div className="flex flex-col items-center h-full w-full">
       <h1 className="font-cherry-bomb-one text-white text-5xl mb-4">
         {t("gameOver")}
       </h1>
@@ -17,12 +17,12 @@ const GameOver = () => {
         {t("roundScore", { score: currentScore, rounds: currentRound })}
       </p>
       <button
-        className="w-full max-w-48 bg-orange-500 dark:bg-orange-700 hover:bg-orange-300 dark:hover:bg-orange-400 text-white text-xl font-bold py-4 px-5 rounded-full transition duration-200 transform hover:scale-105"
+        className="w-full max-w-48 mb-12 bg-orange-500 dark:bg-orange-700 hover:bg-orange-300 dark:hover:bg-orange-400 text-white text-xl font-bold py-4 px-5 rounded-full transition duration-200 transform hover:scale-105"
         onClick={handleReplay}
       >
         {t("playAgain")}
       </button>
-    </>
+    </div>
   );
 };
 

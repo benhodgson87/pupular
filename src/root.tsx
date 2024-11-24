@@ -27,6 +27,18 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Lexend+Deca:wght@400&family=Lexend+Deca:wght@700&display=swap",
   },
+  {
+    rel: "icon",
+    href: "/logomark-black.svg",
+    type: "image/x-icon",
+    media: "(prefers-color-scheme: light)",
+  },
+  {
+    rel: "icon",
+    href: "/logomark-white.svg",
+    type: "image/x-icon",
+    media: "(prefers-color-scheme: dark)",
+  },
 ];
 
 export const handle = { i18n: ["translation"] };
@@ -35,7 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const locale = await i18nServer.getLocale(request);
   return Response.json(
     { locale, GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID },
-    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } },
+    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } }
   );
 }
 

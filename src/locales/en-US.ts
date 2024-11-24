@@ -8,6 +8,7 @@ export default {
     nextRound: "Next round",
   },
   Footer: {
+    coffeeTitle: "Enjoying this game?",
     body: "Built by <0>Ben Hodgson</0>, using <1>NYC Open Data</1> and the <2>Dog API</2>.",
   },
   GameOver: {
