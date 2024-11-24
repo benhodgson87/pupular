@@ -1,9 +1,10 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "~/context/GameContext";
 
 const timeFormatter = (time: number) =>
-  new Date(time * 1000).toISOString().slice(time > 59 ? 14 : 15, 19);
+  new Date(time * 1000)
+    .toISOString()
+    .slice(time > 59 ? 15 : time > 9 ? 17 : 18, 19);
 
 const Timer = () => {
   const { t } = useTranslation(undefined, { keyPrefix: "Timer" });
