@@ -2,12 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Card } from "~/components/Card";
 import { GameOver } from "~/components/GameOver";
 import { useGameContext } from "~/context/GameContext";
+import { GameStart } from "../GameStart";
 import {
   gameCardAnimation,
   gameOverAnimation,
   playViewAnimation,
 } from "./Game.motion";
-import { GameStart } from "../GameStart";
 
 const Game = () => {
   const { playState } = useGameContext();

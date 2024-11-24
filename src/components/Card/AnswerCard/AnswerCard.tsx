@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { CountdownButton } from "~/components/CountdownButton";
 import { TIME_BETWEEN_ROUND } from "~/config/game";
 import { howManyAnimation, nextRoundAnimation } from "./AnswerCard.motion";
-import { useEffect } from "react";
 
 type Props = {
   result: {
