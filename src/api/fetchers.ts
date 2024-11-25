@@ -19,16 +19,31 @@ const BASE_URL =
 
 const fetchDogData = async (): Promise<DogResponse> =>
   fetch(`${BASE_URL}/api/dog`, { cache: "no-store" })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) return res.json();
+      throw new Error(`Failed retrieving data from ${BASE_URL}/api/dog`);
+    })
     .catch((e) => {
       console.error(e);
-      throw new Error(e);
+      return null;
     });
 
 const fetchDogAvatar = async (): Promise<AvatarResponse> =>
   fetch("https://dog.ceo/api/breeds/image/random")
-    .then((res) => res.json())
-    .catch(() => null);
+    .then((res) => {
+      if (res.ok) return res.json();
+      throw new Error("Failed retrieving avatar from dog.ceo/api");
+    })
+    .catch((e) => {
+      console.error(e);
+
+      const fallbackId = Math.floor(Math.random() * 6) + 1;
+      const fallback = `/avatar-fallback/ai-fallback-${fallbackId}.png`;
+      return {
+        message: fallback,
+        status: "fallback",
+      };
+    });
 
 export const fetchDog = async (): Promise<Response | null> =>
   Promise.all([fetchDogData(), fetchDogAvatar()])
