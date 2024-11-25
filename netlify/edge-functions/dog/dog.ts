@@ -11,30 +11,35 @@ type Dog = {
 
 const ALLOWED_METHODS = ["GET", "POST"];
 
-const GET = async () => {
+const GET = async (request: Request, _context: Context) => {
   try {
-    const dogs = (await fetch(
+    const prevCount = Number(new URL(request.url).searchParams.get("p"));
+
+    const data = (await fetch(
       `${Netlify.env.get("API_BASE_URL")}/data/dogs.json`,
       { cache: "force-cache" }
     ).then((res) => res.json())) as Array<Dog>;
 
+    const dogs =
+      prevCount > 0 ? data.filter((item) => item.count !== prevCount) : data;
+
     const randomIndex = Math.floor(Math.random() * dogs.length);
 
-    const data = dogs[randomIndex];
-    if (!data || Object.keys(data).length === 0) {
+    const dog = dogs[randomIndex];
+    if (!dog || Object.keys(dog).length === 0) {
       throw new Error("No data returned from store");
     }
 
     console.log(
-      `Retrieved random entry: ${data.id} (${String(data.name).toUpperCase()})`
+      `Retrieved random entry: ${dog.id} (${String(dog.name).toUpperCase()})`
     );
 
-    const answers = createAnswers(Number(data.count));
+    const answers = createAnswers(Number(dog.count));
 
     return Response.json(
       {
-        id: data.id,
-        name: data.name,
+        id: dog.id,
+        name: dog.name,
         answers,
       },
       {
@@ -78,8 +83,6 @@ const POST = async (request: Request, context: Context) => {
       );
     }
 
-    console.log(`Submitted Answer for ${id}: ${body.answer}`);
-
     const data = dogs.find((dog) => dog.id === id);
 
     if (!data || Object.keys(data).length === 0) {
@@ -88,6 +91,12 @@ const POST = async (request: Request, context: Context) => {
 
     const count = Number(data.count);
     const correct = body.answer === count;
+
+    console.log(
+      `Submitted ${correct ? "CORRECT" : "INCORRECT"} Answer for ${id}: ${
+        body.answer
+      }`
+    );
 
     return Response.json(
       {
@@ -138,6 +147,6 @@ export default async (request: Request, context: Context) => {
       return await POST(request, context);
     case "GET":
     default:
-      return await GET();
+      return await GET(request, context);
   }
 };

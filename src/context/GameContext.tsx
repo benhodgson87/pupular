@@ -32,7 +32,7 @@ type GameContextType = {
   currentScore: number;
   timeRemaining: number;
   handleNewGame: () => void;
-  handleNextRound: (method: NextRoundMethod) => void;
+  handleNextRound: (method: NextRoundMethod, prevCount: number) => void;
   handleCorrectAnswer: () => void;
   handleIncorrectAnswer: () => void;
   handleReplay: () => void;
@@ -85,12 +85,13 @@ const GameContextProvider = ({ children }: ProviderProps) => {
   const [currentDog, setCurrentDog] = useState<CurrentDog | undefined>(
     loaderData.initialCurrentDog
   );
+  const [prevCount, setPrevCount] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(defaultTimeRemaining);
 
   useEffect(() => {
     const fetcher = async () => {
       if (playState === "PLAYING") {
-        const resp = await fetchDog();
+        const resp = await fetchDog(prevCount);
         if (!resp) return;
 
         return setCurrentDog(resp);
@@ -136,7 +137,11 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     });
   };
 
-  const handleNextRound = (method: NextRoundMethod = "AUTO") => {
+  const handleNextRound = (
+    method: NextRoundMethod = "AUTO",
+    prevCount: number
+  ) => {
+    setPrevCount(prevCount);
     setCurrentDog(undefined);
     setCurrentRound((prev) => prev + 1);
 

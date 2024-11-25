@@ -45,7 +45,7 @@ const Card = () => {
   };
 
   const handleAnswerTimeout = (method: "AUTO" | "MANUAL") => {
-    handleNextRound(method);
+    handleNextRound(method, result?.count || 0);
     setResult(undefined);
   };
 
