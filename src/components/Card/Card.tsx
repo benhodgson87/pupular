@@ -26,6 +26,9 @@ const Card = () => {
 
   const [result, setResult] = useState<ResultState>();
 
+  /**
+   * TODO: Move this into GameContext
+   */
   const handleAnswer = async (answer: number) => {
     if (!currentDog) return;
 
