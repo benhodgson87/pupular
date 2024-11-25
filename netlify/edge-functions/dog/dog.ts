@@ -24,7 +24,7 @@ const GET = async () => {
 
     return Response.json(
       {
-        id: key.replace(/^dog:/, ""),
+        id: key,
         name: data.name,
         answers,
       },
@@ -69,7 +69,7 @@ const POST = async (request: Request, context: Context) => {
 
     console.log(`Submitted Answer for ${key}: ${body.answer}`);
 
-    const data = await redis.hgetall(`dog:${key}`);
+    const data = await redis.hgetall(key);
 
     if (!data || Object.keys(data).length === 0) {
       throw new Error("No data returned from store");
