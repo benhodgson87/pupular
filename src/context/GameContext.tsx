@@ -107,9 +107,9 @@ const GameContextProvider = ({ children }: ProviderProps) => {
       gameTimer = setInterval(() => {
         setTimeRemaining((current) => (current > 0 ? current - 1 : 0));
       }, 1000);
-
-      return () => clearInterval(gameTimer);
     }
+
+    return () => clearInterval(gameTimer);
   }, [playState]);
 
   useEffect(() => {
