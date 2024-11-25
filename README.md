@@ -8,7 +8,7 @@ Pupular is a fun game built using NYC's [open data set of licensed dogs](https:/
 | --------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------ |
 | ![Play Screen](./public/screenshots/game_start.png) | ![Round](./public/screenshots/in_round.png) | ![Correct Answer](./public/screenshots/correct_answer.png) | ![Game Over](./public/screenshots/game_over.png) |
 
-It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.netlify.com/). Data is handled via Netlify edge functions and [Upstash](https://upstash.com) Redis, with animations powered by [Motion](https://motion.dev), and future support for translation through [remix-i18next](https://github.com/sergiodxa/remix-i18next).
+It's built on [Remix](https://remix.run/), and hosted on [Netlify](https://www.netlify.com/). Animation is handled by [Motion](https://motion.dev), with future support for translation through [remix-i18next](https://github.com/sergiodxa/remix-i18next).
 
 ## How it was built
 
