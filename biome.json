@@ -71,7 +71,7 @@
   },
   "javascript": {
     "formatter": { "quoteStyle": "double" },
-    "globals": ["gtag"]
+    "globals": ["Netlify", "gtag"]
   },
   "overrides": [
     { "include": ["**/*.{js,jsx,ts,tsx}"] },

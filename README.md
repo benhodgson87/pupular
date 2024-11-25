@@ -50,20 +50,27 @@ This results in the following output, where the expired licenses have been omitt
 
 In total there are 616,890 entries in the original data, which reduce down to 43,066 individual 'valid' dogs with 9,397 unique name records; 1,622 of which belong to only one dog.
 
-This data was then fed into Redis where it can be queried via `RANDOMKEY` to get a (mostly) random entry for each round. Redis does occasionally return the same key again within a short timeframe.
-
-The correct answer is combined with two other randomly generated values with some logic to keep them feasibly similar and returned to the user, alongside an image pulled from the [Dog API](https://dog.ceo/api).
+This data was then fed into Redis where it can be queried via `RANDOMKEY` to get a (mostly) random entry for each round. The correct answer is combined with two other randomly generated values with some logic to keep them feasibly similar and returned to the user, alongside an image pulled from the [Dog API](https://dog.ceo/api).
 
 The user then submits their answer and it is checked against the correct count and returned for the user's score to be updated.
 
 The state and gameplay functionality is handled in a central React context provider, and new high scores are persisted to a cookie for later use.
+
+## Redis
+
+Using Redis to store the data means the game is incredibly quick and responsive, however this comes at some trade-offs;
+
+- `RANDOMKEY` sometimes returns the same key again in a short timeframe, and Upstash sometimes has issues where it gets 'stuck' on a key, so the same dog will be returned for every round.
+- No ability to use queries to make gameplay more interesting, eg. If you get a dog with a count of 1, make sure the next dog has a different count, to avoid the situation where multiple dogs in a row have the same answer, which is frequent given this accounts for 17% of the data set.
+
+There is an example branch with a migration to use Mongo Atlas, however it was far too slow on the free tier and would need the game to be refactored to pull a batch of dogs intermittently to load up a cache, rather than just getting them in real time. Answers were also too slow to respond.
 
 ## Future functionality
 
 - Present interesting facts from breed/gender data on the answer screen
 - Generate images for social sharing of high scores
 - Hard mode; limit time user has to select an answer, options are all within 1 of the correct count
-- Impossible mode; no options presented, just a number input to guess the correct count (give the option to use a hint to sacrifice points)
+- Impossible mode; no options presented, just a number input to guess the correct count
 
 ## Fork and contribute
 
