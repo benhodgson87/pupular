@@ -1,5 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import cookie from "cookie";
+import { fetchDog } from "~/api";
 import { Footer } from "~/components/Footer";
 import { Game } from "~/components/Game";
 import { GameHeader } from "~/components/GameHeader";
@@ -51,11 +53,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const parsedCookies = cookie.parse(request.headers.get("cookie") ?? "");
   const highScore = Number(parsedCookies[HIGH_SCORE_COOKIE]);
 
-  return Response.json({ highScore });
+  const initialCurrentDog = await fetchDog();
+
+  return Response.json({ highScore, initialCurrentDog });
 }
 
 export default function Index() {

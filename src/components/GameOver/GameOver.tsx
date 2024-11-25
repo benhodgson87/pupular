@@ -4,9 +4,9 @@ import { useGameContext } from "~/context/GameContext";
 const GameOver = () => {
   const { t } = useTranslation(undefined, { keyPrefix: "GameOver" });
 
-  const { currentScore, currentRound, handleNewGame } = useGameContext();
+  const { currentScore, currentRound, handleReplay } = useGameContext();
 
-  const handleReplay = () => handleNewGame(true);
+  const handleRestart = () => handleReplay();
 
   return (
     <div className="flex flex-col items-center h-full w-full">
@@ -18,7 +18,7 @@ const GameOver = () => {
       </p>
       <button
         className="w-full max-w-48 bg-orange-500 dark:bg-orange-700 hover:bg-orange-300 dark:hover:bg-orange-400 text-white text-xl font-bold py-4 px-5 rounded-full transition duration-200 transform hover:scale-105"
-        onClick={handleReplay}
+        onClick={handleRestart}
       >
         {t("playAgain")}
       </button>

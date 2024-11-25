@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { fetchDog } from "~/api";
 import { DEFAULT_GAME_TIME, HIGH_SCORE_COOKIE } from "~/config/game";
 import { loader } from "~/routes/_index";
 
@@ -17,23 +18,24 @@ type ProviderProps = {
   children?: ReactNode | undefined;
 };
 
+type CurrentDog = {
+  id: string;
+  name: string;
+  answers: Array<number>;
+  avatar?: string | null;
+};
+
 type GameContextType = {
   playState: PlayState;
   currentDog?: CurrentDog;
   currentRound: number;
   currentScore: number;
   timeRemaining: number;
-  handleNewGame: (isReplay?: boolean) => void;
+  handleNewGame: () => void;
   handleNextRound: (method: NextRoundMethod) => void;
   handleCorrectAnswer: () => void;
   handleIncorrectAnswer: () => void;
-};
-
-type CurrentDog = {
-  id: string;
-  name: string;
-  answers: Array<number>;
-  avatar?: string;
+  handleReplay: () => void;
 };
 
 const defaultPlayState = "START";
@@ -59,6 +61,9 @@ const GameContext = createContext<GameContextType>({
   handleIncorrectAnswer: () => {
     console.error("`handleIncorrectAnswer` run with initialiser");
   },
+  handleReplay: () => {
+    console.error("`handleRestart` run with initialiser");
+  },
 });
 
 const useGameContext = () => {
@@ -72,31 +77,28 @@ const useGameContext = () => {
 };
 
 const GameContextProvider = ({ children }: ProviderProps) => {
+  const loaderData = useLoaderData<typeof loader>();
+
   const [playState, setPlayState] = useState<PlayState>(defaultPlayState);
   const [currentRound, setCurrentRound] = useState(defaultCurrentRound);
   const [currentScore, setCurrentScore] = useState(defaultCurrentScore);
-  const [currentDog, setCurrentDog] = useState<CurrentDog>();
+  const [currentDog, setCurrentDog] = useState<CurrentDog | undefined>(
+    loaderData.initialCurrentDog
+  );
   const [timeRemaining, setTimeRemaining] = useState(defaultTimeRemaining);
 
-  const loaderData = useLoaderData<typeof loader>();
-
   useEffect(() => {
-    if (playState === "PLAYING") {
-      Promise.all([
-        fetch(`/api/dog`, { cache: "no-store" }).then((res) => res.json()),
-        fetch("https://dog.ceo/api/breeds/image/random")
-          .then((res) => res.json())
-          .catch(() => null),
-      ])
-        .then(([dog, picture]) => {
-          setCurrentDog({
-            ...dog,
-            avatar: picture.message || null,
-          });
-        })
-        .catch((e) => console.error(e));
-    }
-  }, [playState, currentRound]);
+    const fetcher = async () => {
+      if (playState === "PLAYING") {
+        const resp = await fetchDog();
+        if (!resp) return;
+
+        return setCurrentDog(resp);
+      }
+    };
+
+    fetcher();
+  }, [currentRound]);
 
   useEffect(() => {
     let gameTimer: NodeJS.Timeout | undefined;
@@ -114,15 +116,22 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     if (playState === "PLAYING" && timeRemaining === 0) handleGameOver();
   }, [timeRemaining, playState]);
 
-  const handleNewGame = (isReplay?: boolean) => {
+  const handleNewGame = () => {
+    setPlayState("PLAYING");
+
+    gtag("event", "play_start", {
+      high_score: loaderData.highScore || 0,
+    });
+  };
+
+  const handleReplay = () => {
     setCurrentDog(undefined);
     setTimeRemaining(defaultTimeRemaining);
     setCurrentRound(defaultCurrentRound);
     setCurrentScore(defaultCurrentScore);
     setPlayState("PLAYING");
 
-    gtag("event", "play_start", {
-      is_replay: isReplay,
+    gtag("event", "play_replay", {
       high_score: loaderData.highScore || 0,
     });
   };
@@ -180,6 +189,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
     currentScore,
     timeRemaining,
     handleNewGame,
+    handleReplay,
     handleNextRound,
     handleCorrectAnswer,
     handleIncorrectAnswer,
