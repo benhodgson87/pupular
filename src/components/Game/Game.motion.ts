@@ -2,6 +2,9 @@ export const playViewAnimation = {
   exit: {
     scale: 0,
     opacity: 0,
+    transition: {
+      duration: 0.125,
+    },
   },
 };
 

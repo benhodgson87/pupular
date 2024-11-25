@@ -13,7 +13,7 @@ const Game = () => {
   const { playState } = useGameContext();
 
   return (
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence mode="wait">
       {playState === "PLAYING" ? (
         <motion.div key="card" exit="exit" variants={gameCardAnimation}>
           <Card key="card" />
