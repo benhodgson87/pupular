@@ -13,8 +13,8 @@ type AvatarResponse = {
 type Response = DogResponse & { avatar?: AvatarResponse["message"] };
 
 const BASE_URL =
-  typeof process !== "undefined" && process.env?.DEPLOY_URL
-    ? process.env.DEPLOY_URL
+  typeof process !== "undefined" && process.env?.API_BASE_URL
+    ? process.env.API_BASE_URL
     : "";
 
 const fetchDogData = async (): Promise<DogResponse> =>
