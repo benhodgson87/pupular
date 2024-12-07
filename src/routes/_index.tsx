@@ -58,6 +58,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const highScore = Number(parsedCookies[HIGH_SCORE_COOKIE]);
 
   const initialCurrentDog = await fetchDog();
+  await fetch(`${process.env.API_BASE_URL}/api/dog/?warmup=true`, {
+    method: "POST",
+  });
 
   return Response.json({ highScore, initialCurrentDog });
 }

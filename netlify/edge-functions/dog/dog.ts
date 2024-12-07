@@ -66,6 +66,23 @@ const POST = async (request: Request, context: Context) => {
       `${Netlify.env.get("API_BASE_URL")}/data/dogs.json`
     ).then((res) => res.json())) as Array<Dog>;
 
+    if (new URL(request.url).searchParams.get("warmup")) {
+      console.log("Received warmup request");
+      return Response.json(
+        {
+          warmup: true,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Netlify-CDN-Cache-Control":
+              "public, max-age=60, stale-while-revalidate=120",
+          },
+        }
+      );
+    }
+
     const id = context.params.id;
     if (!id || id.length === 0) {
       console.error("Missing ID parameter");
