@@ -1,7 +1,14 @@
 import { Link } from "@remix-run/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
+import {
+  LINK_EXT_BH_BLUESKY,
+  LINK_EXT_BH_PERSONAL_SITE,
+  LINK_EXT_DOG_API,
+  LINK_EXT_NYC_OPEN_DATA_DOGS,
+} from "~/config/links";
 import { useGameContext } from "~/context/GameContext";
+import { KofiButton } from "../KofiButton";
 import { coffeeLinkAnimation } from "./Footer.motion";
 
 const Footer = () => {
@@ -24,13 +31,7 @@ const Footer = () => {
             <p className="mb-3 text-xs font-bold text-gray-200 dark:text-gray-300">
               {t("coffeeTitle")}
             </p>
-            <a href="https://ko-fi.com/Y8Y4N0UR9" target="_blank">
-              <img
-                className="border-0 h-7"
-                src="https://storage.ko-fi.com/cdn/kofi1.png?v=6"
-                alt="Buy Me a Coffee at ko-fi.com"
-              />
-            </a>
+            <KofiButton />
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -39,22 +40,22 @@ const Footer = () => {
           i18nKey="Footer.body"
           components={[
             <Link
-              to="https://benhodgson.net"
+              to={LINK_EXT_BH_PERSONAL_SITE}
               target="_blank"
               className="underline"
             />,
             <Link
-              to="https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp/about_data"
+              to={LINK_EXT_NYC_OPEN_DATA_DOGS}
               target="_blank"
               className="underline"
             />,
             <Link
-              to="https://dog.ceo/dog-api/"
+              to={LINK_EXT_DOG_API}
               target="_blank"
               className="underline"
             />,
             <Link
-              to="https://bsky.app/profile/benhodgson.net"
+              to={LINK_EXT_BH_BLUESKY}
               target="_blank"
               className="underline"
             />,

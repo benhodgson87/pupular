@@ -47,7 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const locale = await i18nServer.getLocale(request);
   return Response.json(
     { locale, GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID },
-    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } }
+    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } },
   );
 }
 

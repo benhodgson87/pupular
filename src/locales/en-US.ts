@@ -24,6 +24,9 @@ export default {
       "<0>New York City publishes open data of all licensed dogs in the city, with over {{total, number(maximumFractionDigits: 0)}} unique names.</0><1>Can you guess which dogs have the most popular names?</1>",
     startGame: "Let's play!",
   },
+  KofiButton: {
+    altText: "Buy Me a coffee at ko-fi.com",
+  },
   PlayCard: {
     answerTitle: "How many dogs have this name?",
     motivators: {

@@ -83,7 +83,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
   const [currentRound, setCurrentRound] = useState(defaultCurrentRound);
   const [currentScore, setCurrentScore] = useState(defaultCurrentScore);
   const [currentDog, setCurrentDog] = useState<CurrentDog | undefined>(
-    loaderData.initialCurrentDog
+    loaderData.initialCurrentDog,
   );
   const [prevCount, setPrevCount] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(defaultTimeRemaining);
@@ -139,7 +139,7 @@ const GameContextProvider = ({ children }: ProviderProps) => {
 
   const handleNextRound = (
     method: NextRoundMethod = "AUTO",
-    prevCount: number
+    prevCount: number,
   ) => {
     setPrevCount(prevCount);
     setCurrentDog(undefined);

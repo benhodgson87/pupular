@@ -17,7 +17,7 @@ const GET = async (request: Request, _context: Context) => {
 
     const data = (await fetch(
       `${Netlify.env.get("API_BASE_URL")}/data/dogs.json`,
-      { cache: "force-cache" }
+      { cache: "force-cache" },
     ).then((res) => res.json())) as Array<Dog>;
 
     const dogs =
@@ -31,7 +31,7 @@ const GET = async (request: Request, _context: Context) => {
     }
 
     console.log(
-      `Retrieved random entry: ${dog.id} (${String(dog.name).toUpperCase()})`
+      `Retrieved random entry: ${dog.id} (${String(dog.name).toUpperCase()})`,
     );
 
     const answers = createAnswers(Number(dog.count));
@@ -48,14 +48,14 @@ const GET = async (request: Request, _context: Context) => {
           "Cache-Control": "public, max-age=0, must-revalidate",
           "Netlify-CDN-Cache-Control": "public, max-age=1, must-revalidate",
         },
-      }
+      },
     );
   } catch (e) {
     console.error(e);
 
     return Response.json(
       { error: "Internal Server Error", message: e },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
@@ -63,7 +63,7 @@ const GET = async (request: Request, _context: Context) => {
 const POST = async (request: Request, context: Context) => {
   try {
     const dogs = (await fetch(
-      `${Netlify.env.get("API_BASE_URL")}/data/dogs.json`
+      `${Netlify.env.get("API_BASE_URL")}/data/dogs.json`,
     ).then((res) => res.json())) as Array<Dog>;
 
     if (new URL(request.url).searchParams.get("warmup")) {
@@ -80,7 +80,7 @@ const POST = async (request: Request, context: Context) => {
             "Netlify-CDN-Cache-Control":
               "public, max-age=60, stale-while-revalidate=120",
           },
-        }
+        },
       );
     }
 
@@ -97,7 +97,7 @@ const POST = async (request: Request, context: Context) => {
 
       return Response.json(
         { error: "Missing `answer` value" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -113,7 +113,7 @@ const POST = async (request: Request, context: Context) => {
     console.log(
       `Submitted ${correct ? "CORRECT" : "INCORRECT"} Answer for ${id}: ${
         body.answer
-      }`
+      }`,
     );
 
     return Response.json(
@@ -131,14 +131,14 @@ const POST = async (request: Request, context: Context) => {
           "Netlify-CDN-Cache-Control":
             "public, max-age=60, stale-while-revalidate=120",
         },
-      }
+      },
     );
   } catch (e) {
     console.error(e);
 
     return Response.json(
       { error: "Internal Server Error", message: e },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
@@ -147,16 +147,16 @@ export default async (request: Request, context: Context) => {
   if (!ALLOWED_METHODS.includes(request.method)) {
     console.error(
       `Request method must be one of ${ALLOWED_METHODS.join(", ")}.`,
-      `Received ${request.method}.`
+      `Received ${request.method}.`,
     );
 
     return Response.json(
       {
         error: `Request method must be one of ${ALLOWED_METHODS.join(
-          ", "
+          ", ",
         )}. Received ${request.method}.`,
       },
-      { status: 405 }
+      { status: 405 },
     );
   }
 
