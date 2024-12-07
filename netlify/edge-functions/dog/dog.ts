@@ -71,6 +71,7 @@ const POST = async (request: Request, context: Context) => {
       return Response.json(
         {
           warmup: true,
+          length: dogs.length,
         },
         {
           headers: {
