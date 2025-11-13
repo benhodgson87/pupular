@@ -12,7 +12,7 @@ export default {
   },
   Footer: {
     coffeeTitle: "Enjoying this game?",
-    body: "Built by <0>Ben Hodgson</0>, using <1>NYC Open Data</1> and the <2>Dog API</2>. Found a bug? <3>Let me know!</3>",
+    body: "Built by <0>Ben Hodgson</0>, using <1>NYC Open Data</1> and the <2>Dog API</2>.",
   },
   GameOver: {
     gameOver: "Game over!",

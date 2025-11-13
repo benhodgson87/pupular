@@ -54,11 +54,6 @@ const Footer = () => {
               target="_blank"
               className="underline"
             />,
-            <Link
-              to={LINK_EXT_BH_BLUESKY}
-              target="_blank"
-              className="underline"
-            />,
           ]}
         />
       </div>
